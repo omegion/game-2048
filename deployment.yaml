@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: "game-2048"
+spec:
+  selector:
+    matchLabels:
+      app: "game-2048"
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: "game-2048"
+    spec:
+      containers:
+        - image: alexwhen/docker-2048
+          imagePullPolicy: Always
+          name: "2048"
+          ports:
+            - containerPort: 80
+              protocol: TCP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: "game-2048"
+  labels:
+    app: "game-2048"
+  annotations:
+    service.beta.kubernetes.io/aws-load-balancer-type: external
+    service.beta.kubernetes.io/aws-load-balancer-nlb-target-type: ip
+    service.beta.kubernetes.io/aws-load-balancer-scheme: internet-facing
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 80
+  selector:
+    app: "game-2048"
