@@ -15,5 +15,6 @@ aws eks update-kubeconfig --name $CLUSTER_NAME --region $REGION --kubeconfig kub
 
 ## Deploy manifests
 ```shell
+export KUBECONFIG=kubeconfig
 kubect apply -f deployment.yaml
 ```
