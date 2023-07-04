@@ -18,3 +18,8 @@ aws eks update-kubeconfig --name $CLUSTER_NAME --region $REGION --kubeconfig kub
 export KUBECONFIG=kubeconfig
 kubectl apply -f deployment.yaml
 ```
+
+## Get Load Balancer
+```shell
+kubectl get svc -l app=game-2048
+```
